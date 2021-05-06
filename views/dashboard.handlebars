@@ -1,3 +1,13 @@
-{{#each object as ||}}
-{{< partial name}}
-{{/each}}
+{{#if posts.length}}
+<aside>
+  <h2>Your Posts</h2>
+    {{#each posts as |post|}}
+      {{> dashboard-postinfo post}}
+    {{/each}}
+
+</aside>
+{{/if}}
+
+<button type="submit" class="btn"><a class="link" href="/dashboard/new">+ New Post</a></button>
+
+<script src="/js/post.js"></script>

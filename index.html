@@ -17,39 +17,120 @@
     <a href="/dashboard/" class="w3-bar-item w3-button w3-mobile">dashboard</a>
     <a href="/" class="w3-bar-item w3-button w3-mobile">logout</a>
     <a href="/login" class="w3-bar-item w3-button w3-mobile">login</a>
+
   </div>
   <!-- login -->
-  <div class="w3-card-4" style="width:30%;">
+  <div class="w3-card-4" style="width:20%;">
+    <header class="w3-container w3-blue">
+      <h2>Login</h2>
+    </header>
+    <br>
+    <div class="w3-container">
+      <form class="form login-form">
+        <div class="form-group">
+          <label for="email-login">email: </label>
+          <input class="form-input" type="text" id="email-login" />
+        </div>
+        <div class="form-group">
+          <label for="password-login">password:</label>
+          <input class="form-input" type="password" id="password-login" />
+        </div>
+        <br>
+        <div class="form-group">
+          <button class="w3-button w3-red" type="submit">login</button>
+        </div>
+      </form>
+    </div>
+    <br>
+    <footer class="w3-container w3-blue">
+      <br>
+    </footer>
+  </div>
+  <br>
+  <!-- sign up -->
+  <div class="w3-card-4" style="width:20%;">
     <header class="w3-container w3-blue">
       <h2>Sign up</h2>
     </header>
-  <form class="w3-container">
-    <p>
-    <label>name</label>
-    <input class="w3-input" type="text"></p>
-    <p>
-    <label>email</label>
-    <input class="w3-input" type="text"></p>
-    <p>
-    <label>user name</label>
-    <input class="w3-input" type="text"></p>
-    <p>
-    <label>password</label>
-    <input class="w3-input" type="text"></p>
-    <div class="form-group">
-      <button class="btn btn-primary" type="submit">Sign up</button>
-    </div>
-  </form>
-  <br>
-  <footer class="w3-container w3-blue">
     <br>
-  </footer>
+    <form class="form signup-form">
+      <div class="form-group">
+        <label for="name-signup">name:</label>
+        <input class="form-input" type="text" id="name-signup" />
+      </div>
+      <div class="form-group">
+        <label for="email-signup">email:</label>
+        <input class="form-input" type="text" id="email-signup" />
+      </div>
+      <div class="form-group">
+        <label for="password-signup">password:</label>
+        <input class="form-input" type="password" id="password-signup" />
+      </div>
+      <br>
+      <div class="form-group">
+        <button class="w3-button w3-red" type="submit">signup</button>
+      </div>
+      <br>
+    </form>
+    <footer class="w3-container w3-blue">
+      <br>
+    </footer>
   </div>
+
+
   <main>
     {{{body}}}
   </main>
+  <!-- newpost -->
+  
+  <!-- dashpost -->
+  <div class="w3-card-4" style="width:50%;">
+    <header class="w3-container w3-black">
+      <h2>Post</h2>
+    </header>
+    <form class="w3-container">
+      <div class="comments">
+        {{#each this}}
+        <section class="comment card-body">
+          <div class="text">
+            {{comment_text}}
+          </div>
+          <div class="meta">
+            -{{user.username}}, {{format_date created_at}}
+          </div>
+        </section>
+        {{/each}}
+      </div>
+    </form>
+    <br>
+    <footer class="w3-container w3-black">
+      <br>
+    </footer>
+  </div>
 
-  <script src="./js/login.js"></script>
+  <div class="w3-card-4" style="width: 20%;">
+    <div class="w3-container w3-black">
+        <h4><a class="link" href="/dashboard/edit/{{id}}">{{title}}</a></h4>
+    </div>
+</div>
+<div class="w3-card-4" style="width:20%;">
+  <header class="w3-container w3-blue">
+    <h2>edit post</h2>
+  </header>
+  <form class="w3-container"></form>
+      <label>Title</label>
+      <input name="w3-input" type="text" value="{{post.title}}" class="form-input" />
+      <label class="w3-input" for="content">Content</label>
+      <input name="w3-input" type="text" value="{{post.content}}" class="form-input" />
+      <button type="w3-input" class="w3-button w3-yellow">Update Post</button>
+      <button type="w3-input" class="w3-button w3-red">Delete Post</button>
+  </form>
+</div>
+
+
+<script src="/javascript/edit-post.js"></script>
+<script src="/javascript/delete-post.js"></script>
+
 
 </body>
 

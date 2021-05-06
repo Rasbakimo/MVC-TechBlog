@@ -1,10 +1,24 @@
-const router = require("express").Router();
-const { Comment, User, Post } = require("../models");
-const withAuth = require("../utils/auth");
+const router = require('express').Router();
+const sequelize = require('../config/connection');
+const { Post, User, Comment } = require('../models');
 
-router.get("/", async (req, res) => {
+// Render the home page
+router.get('/', async (req, res) => {
   try {
-    res.render("homepage", {
+    const postData = await Post.findAll({
+      include: [{
+        model: User, attributes: ['username'],
+        order: [['created_at', 'DESC']],
+      },
+      {
+        model: Comment,
+        attributes: ['id', 'body', 'post_id', 'user_id' ],
+      }]
+    });
+    const posts = postData.map((project) => project.get({ plain: true }));
+
+    res.render('homepage', {
+      posts,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -12,45 +26,47 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Use withAuth middleware to prevent access to route
-router.get("/profile", withAuth, async (req, res) => {
+// Render the single post page
+router.get('/post/:id',async (req, res) => {
   try {
-    // Find the logged in user based on the session ID
-    const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ["password"] },
-    });
+  const postData = await Post.findOne({
+    where: {
+      id: req.params.id
+    },
+    include: [{
+      model: User, attributes: ['username'],
+      order: [['created_at', 'DESC']],
+    },
+    {
+      model: Comment,
+      attributes: ['id', 'body', 'post_id', 'user_id' ],
+    }]
+  });
+  const posts = postData.map((project) => project.get({ plain: true }));
 
-    const user = userData.get({ plain: true });
-
-    res.render("profile", {
-      ...user,
-      logged_in: true,
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
+  res.render('homepage', {
+    users,
+    logged_in: req.session.logged_in,
+  });
+} catch (err) {
+  res.status(500).json(err);
+}
 });
 
-router.get("/login", (req, res) => {
-  // If the user is already logged in, redirect the request to another route
+// Render the login page.  If the user is logged in, redirect to the home page.
+router.get('/login', (req, res) => {
   if (req.session.logged_in) {
-    res.redirect("/profile");
+    res.redirect('/');
     return;
   }
+  res.render('login');
+});
 
-  res.render("login");
+// Render the sign up page.  If the user is logged in, redirect to the home page.
+router.get('/signup', (req, res) => {
+  res.render('signup');
 });
-router.get("/create", async (req, res) => {
-  try {
-    if (!req.session.logged_in) {
-      res.redirect('/login');
-      return;
-    }
-    res.render("create", {
-      logged_in: req.session.logged_in,
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+
+
+
 module.exports = router;

@@ -1,22 +1,24 @@
- <!-- login -->
-  <div class="w3-card-4" style="width:20%;">
+<div class="w3-card-4 w3-mobile" style="width:20%;">
   <header class="w3-container w3-blue">
-    <h2>Login</h2>
+    <h2>login</h2>
   </header>
-<form class="w3-container">
-  <p>
-  <label>email</label>
-  <input class="w3-input" type="text"></p>
-  <p>
-  <label>Password</label>
-  <input class="w3-input" type="text"></p>
-  <div class="form-group">
-    <button class="btn btn-primary" type="submit">login</button>
-  </div>
-</form>
-<br>
-<footer class="w3-container w3-blue">
+  <form class="w3-container" id="login-form" >
+    <p>
+      <label for= "email-login">email</label>
+      <input class="w3-input" type="text" id="email">
+    </p>
+    <p>
+      <label for="password-login">Password</label>
+      <input class="w3-input" type="text" id="password">
+    </p>
+    <div class="form-group">
+      <button type="submit" class="w3-button w3-green">login</button>
+      <a class="login-link" href="/signup">Sign up instead</a>
+    </div>
+  </form>
   <br>
-</footer>
+  <footer class="w3-container w3-blue">
+    <br>
+  </footer>
 </div>
-
+<script src="/js/login.js"></script>

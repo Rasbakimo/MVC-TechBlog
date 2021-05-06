@@ -1,0 +1,25 @@
+{{> post-info post}}
+
+{{#if loggedIn}}
+<div class="w3-card-4 w3-mobile" style="width:50%;">
+  <header class="w3-container w3-black w3-mobile">
+    <h2>Post</h2>
+  </header>
+  <form class="card-body comment-form" id="comment-form">
+
+        <label class="form-label">Comment</label>
+        <input id="comment" name="comment-body" class="form-input" />
+
+        <button type="submit" class="btn">Submit</button>
+    </form>
+  <br>
+  <footer class="w3-container w3-black w3-mobile">
+    
+  </footer>
+</div>
+{{/if}}
+{{> comments post.comments}}
+
+{{#if loggedIn}}
+<script src="/js/post.js"></script>
+{{/if}}
