@@ -17,7 +17,7 @@ router.get('/',withAuth, async (req, res) => {
       });
       const posts = postData.get({ plain: true });
 
-      res.render("dashboard", {posts,logged_in: true
+      res.render("dashboard", {posts,loggedIn: true
       });
     } catch (err) {
       res.status(500).json(err);
@@ -25,9 +25,7 @@ router.get('/',withAuth, async (req, res) => {
   });
 
 router.get('/edit/:id',withAuth, async (req, res) => {
-    if (!req.session.loggedIn) {
-        res.redirect('/login')
-    } else {
+    
       
   try {
   const postData = await Post.findOne({
@@ -45,12 +43,12 @@ router.get('/edit/:id',withAuth, async (req, res) => {
   });
   const posts = postData.map((project) => project.get({ plain: true }));
 
-  res.render('edit-post', {posts, logged_in: true
+  res.render('edit-post', {posts, loggedIn: true
   });
 } catch (err) {
   res.status(500).json(err);
 }
-}});
+});
 
 
 

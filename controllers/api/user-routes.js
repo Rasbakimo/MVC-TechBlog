@@ -3,6 +3,7 @@ const { User } = require('../../models');
 
 // CREATE new user
 router.post('/', async (req, res) => {
+    console.log("hello from create!")
     try {
         const dbUserData = await User.create({
             name: req.body.email,
@@ -25,6 +26,8 @@ router.post('/', async (req, res) => {
 
 // Login
 router.post('/login', async (req, res) => {
+    console.log(req.body.email);
+    console.log(req.body.password);
     try {
         const dbUserData = await User.findOne({
             where: {
@@ -35,12 +38,12 @@ router.post('/login', async (req, res) => {
         if (!dbUserData) {
             res
                 .status(400)
-                .json({ message: 'Incorrect email or password. Please try again!' });
+                .json({ message: 'Incorrect email. Please try again!' });
             return;
         }
 
         const validPassword = await dbUserData.checkPassword(req.body.password);
-
+        console.log("validPassword", validPassword);
         if (!validPassword) {
             res
                 .status(400)

@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 
     res.render('homepage', {
       posts,
-      logged_in: req.session.logged_in,
+      loggedIn: req.session.loggedIn,
     });
   } catch (err) {
     res.status(500).json(err);
@@ -46,7 +46,7 @@ router.get('/post/:id',async (req, res) => {
 
   res.render('homepage', {
     users,
-    logged_in: req.session.logged_in,
+    loggedIn: req.session.loggedIn,
   });
 } catch (err) {
   res.status(500).json(err);
@@ -55,7 +55,7 @@ router.get('/post/:id',async (req, res) => {
 
 // Render the login page.  If the user is logged in, redirect to the home page.
 router.get('/login', (req, res) => {
-  if (req.session.logged_in) {
+  if (req.session.loggedIn) {
     res.redirect('/');
     return;
   }
@@ -64,6 +64,10 @@ router.get('/login', (req, res) => {
 
 // Render the sign up page.  If the user is logged in, redirect to the home page.
 router.get('/signup', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
   res.render('signup');
 });
 
