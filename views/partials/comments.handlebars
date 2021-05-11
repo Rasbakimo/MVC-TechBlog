@@ -1,25 +1,13 @@
-<div class="w3-card-4" style="width:50%;">
-    <header class="w3-container w3-black">
-      <h2>Post</h2>
-    </header>
-    <form class="w3-container">
-      <div class="comments">
-        {{#each this}}
-          <div class="card">
-              <h3 class="card-header"></h3>
-              <section class="comment card-body">
-                  <div class="text">
-                      {{body}}
-                  </div>
-                  <div class="meta">
-                    -{{user.username}}, {{format_date created_at}}
-                  </div>
-              </section>
-          </div>
-        {{/each}}
-      </div>    </form>
-    <br>
-    <footer class="w3-container w3-black">
-      <br>
-    </footer>
-  </div>
+
+<div class="comments">
+  {{#each this}}
+  <section class="comment">
+    <div class="meta">
+      {{user.username}} on {{format_date created_at}}
+    </div>
+    <div class="text">
+      {{body}}
+    </div>
+  </section>
+  {{/each}}
+</div>

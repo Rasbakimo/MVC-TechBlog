@@ -2,7 +2,6 @@ const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 
-// Render the home page
 router.get('/', async (req, res) => {
   try {
     const postData = await Post.findAll({
@@ -17,7 +16,7 @@ router.get('/', async (req, res) => {
     });
     const posts = postData.map((project) => project.get({ plain: true }));
 
-    res.render('homepage', {
+    res.render('homepage',{
       posts,
       loggedIn: req.session.loggedIn,
     });
@@ -39,13 +38,12 @@ router.get('/post/:id',async (req, res) => {
     },
     {
       model: Comment,
-      attributes: ['id', 'body', 'post_id', 'user_id' ],
     }]
   });
-  const posts = postData.map((project) => project.get({ plain: true }));
+  const posts = postData.map((post) => post.get({ plain: true }));
 
-  res.render('homepage', {
-    users,
+  res.render('single-post',{ 
+    posts,
     loggedIn: req.session.loggedIn,
   });
 } catch (err) {

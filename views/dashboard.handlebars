@@ -1,13 +1,56 @@
-{{#if posts.length}}
-<aside>
-  <h2>Your Posts</h2>
-    {{#each posts as |post|}}
-      {{> dashboard-postinfo post}}
-    {{/each}}
+<div class="w3-container">
+<div class="w3-card-4" style="width:40%;">
+  <header class="w3-container w3-purple">
+   <h2>Create New Post</h2>
+  </header>
+  <br>
+      <div class= "container">
+      <form class="new-post-form">
+        <div>
+          <label for="post-title">Title</label>
+          <input type="text" id="post-title" name="post-title" />
+        </div>
+        <br>
+        <div>
+          <label for="post-text">Text</label>
+          <textarea id="post-text" name="post-text"></textarea>
+          <br>
+        </div>
+        <br>
+        <button type="submit" class="w3-button w3-yellow">Create</button>
+        </div>
+      </form>
+      <footer class="w3-container w3-purple ">
+        <br>
+  </footer>
+  </div>
+<br>
+{{!-- user card --}}
+    <div class="w3-card-4 w3-mobile" style="width:40%;">
+  <header class="w3-container w3-green">
+   <h2>About Me</h2>
+  </header>
+      {{> user-info}}
+       <footer class="w3-container w3-green ">
+    <br>
+  </footer>
+    </div>
+    <br>
 
-</aside>
-{{/if}}
-
-<button type="submit" class="btn"><a class="link" href="/dashboard/new">+ New Post</a></button>
-
-<script src="/js/post.js"></script>
+    {{#if posts.length}}
+    <section class="w3-card">
+      <div class="w3-container">
+        <h2>Your Posts</h2>
+        <ol>
+          {{#each posts as |post|}}
+          <li>
+            {{> post-info post}}
+            <a href="/dashboard/edit/{{post.id}}" class="edit-link">Edit post</a>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+  </div>
+  </section>
+  {{/if}}
+ <script src="/js/comment.js"></script>

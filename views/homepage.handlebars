@@ -1,10 +1,10 @@
-<div"w3-contsiner">
-<article class="post">
+<div"w3-card">
+<ul class="post-list">
+  {{#each posts as |post|}}
+  <li>
+    {{> post-info post }}
+  </li>
+  {{/each}}
+</ul>
 
-    {{#each posts as |post| }}
-    <br>
-        {{> post-info post}}
-    {{/each}}
-
-</article>
 </div>
