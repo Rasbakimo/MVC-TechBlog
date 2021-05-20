@@ -96,7 +96,7 @@ router.get('/post/:id', (req, res) => {
 // Render the login page.  If the user is logged in, redirect to the home page.
 router.get('/login', (req, res) => {
   if (req.session.loggedIn) {
-    res.redirect('/');
+    res.redirect('dashboard');
     return;
   }
 
@@ -106,7 +106,7 @@ router.get('/login', (req, res) => {
 // Render the sign up page.
 router.get('/signup', (req, res) => {
 if (req.session.loggedIn) {
-  res.redirect('/');
+  res.redirect('dashboard');
   return;
 }
 
