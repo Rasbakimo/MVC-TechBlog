@@ -18,11 +18,8 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
 
     try {
-        const userData = await User.findOne(req.params.id, {
-            include: [
-                { model: User, attributes: [username] },
-                { model: Comment }
-            ]
+        const userData = await User.findByPk(req.params.id, {
+            attributes: { exclude: ['password'] }
         });
         res.status(200).json(userData);
     } catch (err) {
@@ -80,6 +77,25 @@ router.post('/login', async (req, res) => {
 
     } catch (err) {
         res.status(400).json(err);
+    }
+});
+
+router.put('/:id', async (req, res) => {
+    try {
+        const userData = await User.update({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+        },
+            {
+                where: {
+                    id: req.params.id,
+                }
+            },
+        );
+        res.status(200).json(userData);
+    } catch (err) {
+        res.status(500).json(err);
     }
 });
 

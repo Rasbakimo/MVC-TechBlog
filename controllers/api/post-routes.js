@@ -5,11 +5,11 @@ const withAuth = require('../../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-    const postData = await Post.findAll(req.params.id,{
-      
+    const postData = await Post.findAll(req.params.id, {
+
       include: [
-        {model: User, attributes:[username]},
-        {model: Comment}
+        { model: User, attributes: ["username"] },
+        { model: Comment }
       ]
     });
     res.status(200).json(postData);
@@ -23,8 +23,8 @@ router.get('/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
       include: [
-        {model: User, attributes:[username] },
-        {model: Comment}
+        { model: User, attributes: ["username"] },
+        { model: Comment }
       ]
     });
     res.status(200).json(postData);
@@ -38,8 +38,9 @@ router.post('/', withAuth, async (req, res) => {
   try {
     const postData = await Post.create(
       {
-        title:req.body.title,
-      content:req.body.content
+        title: req.body.title,
+        content: req.body.content,
+        user_id: req.session.user_id
       });
     res.status(200).json(postData);
   } catch (err) {
@@ -50,11 +51,13 @@ router.post('/', withAuth, async (req, res) => {
 // update a Post by its `id` value
 router.put('/:id', withAuth, async (req, res) => {
   try {
-    const postData = await Post.update({
-      where: {
-        id: req.params.id
-      },
-    });
+    const postData = await Post.update(req.body,{
+   
+        where: {
+          id: req.params.id
+        }
+      }
+    )
     res.status(200).json(postData);
   } catch (err) {
     res.status(500).json(err);

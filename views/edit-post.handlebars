@@ -1,36 +1,53 @@
+
 <article>
   <a href="/dashboard"> &larr; Back to dashboard</a>
-  <h2>
-    Edit Post
-  </h2>
-  <form class="edit-post-form">
-    <div>
-      <input name="post-title" type="text" value="{{post.title}}" />
+  <br>
+  <br>
+  <div class="w3-card-4 w3-mobile" style="width:40%;">
+    <header class="w3-container w3-black">
+      <h2>
+        Edit Post
+      </h2>
+    </header>
+    <div class="w3-container">
+
+      <br>
+      <form class="edit-post-form">
+        <div>
+          <input name="post-title" type="text" value="{{post.title}}" />
+        </div>
+        <div>
+          <textarea name="post-text">{{post.content}}</textarea>
+        </div>
+        <button type="submit">Save post</button>
+        <button type="button" class="delete-post-btn">Delete post</button>
+        <br>
+        <br>
+         <div>
+          Posted by you on {{format_date post.created_at}}
+          |
+          <a href="/post/{{post.id}}">{{post.comments.length}} {{format_plural "comment" post.comments.length}}</a>
+        </div>
+      </form>
     </div>
-    <div>
-      <textarea name="content">{{post.content}}</textarea>
+    <br>
+     <footer class="w3-container w3-black ">
+        <br>
+      </footer>
     </div>
-    <div>
-      Posted by you on {{format_date post.created_at}}
-      |
-      <a href="/post/{{post.id}}">{{post.comments.length}} {{format_plural "comment" post.comments.length}}</a>
-    </div>
-    <button type="submit">Save post</button>
-    <button type="button" class="delete-post-btn">Delete post</button>
-  </form>
 </article>
-
-<form class="comment-form">
-  <div>
-    <textarea name="comment-body"></textarea>
+<br>
+<div class="w3-card-4 w3-mobile" style="width:20%;">
+  <header class=" w3-red">
+    <br>
+  </header>
+  <div class="w3-container">
+  {{> comments post.comments}}
   </div>
-
-  <div>
-    <button type="submit">add comment</button>
-  </div>
-</form>
-
-{{> comments post.comments}}
-
-<!--Scripts-->
-<script src="/js/post.js"></script>
+  <footer class=" w3-red">
+    <br>
+  </footer>
+  <!--Scripts-->
+  <script src="/js/edit-post.js"></script>
+  <script src="/js/delete-post.js"></script>
+  <script src="/js/comment.js"></script>
